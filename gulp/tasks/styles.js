@@ -6,11 +6,11 @@ const gulp = require("gulp"),
       mixins = require("postcss-mixins");
 
 gulp.task("styles", function () {
-  return gulp.src("./app/assets/styles/styles.css")
+  return gulp.src("./app/src/css/styles.css")
     .pipe(postcss([cssImport, mixins, nested, autoprefixer]))
     .on("error", function(error) {
       console.log(error.toString());
       this.emit("end");
     })
-    .pipe(gulp.dest("./app/temp/styles"));
+    .pipe(gulp.dest("./app/temp/css"));
 });

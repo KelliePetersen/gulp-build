@@ -12,12 +12,12 @@ gulp.task("watch", function () {
   watch("./app/index.html", function () {
     browserSync.reload();
   });
-  gulp.watch("./app/assets/styles/**/*.css", gulp.series('styles', 'cssInject'));
-  gulp.watch("./app/assets/scripts/**/*.js").on('change', gulp.series('modernizr', 'scripts', "scriptsRefresh"));
+  gulp.watch("./app/src/css/**/*.css", gulp.series('styles', 'cssInject'));
+  gulp.watch("./app/src/js/**/*.js").on('change', gulp.series('modernizr', 'scripts', "scriptsRefresh"));
 });
 
 gulp.task("cssInject", function () {
-  return gulp.src("./app/temp/styles/styles.css")
+  return gulp.src("./app/temp/css/styles.css")
     .pipe(browserSync.stream());
 });
 

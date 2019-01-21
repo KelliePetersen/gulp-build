@@ -11,34 +11,34 @@ const gulp = require("gulp"),
 gulp.task('previewBuild', function() {
   browserSync.init({ 
     notify: false, 
-    server: { baseDir: "docs" } 
+    server: { baseDir: "dist" } 
   });
 });
 
-gulp.task('deleteDist', () => del('./docs'));
+gulp.task('deleteDist', () => del('./dist'));
 
 gulp.task('copyFiles', function() {
   const paths = [
     './app/**/*',
     '!./app/index.html',
-    '!./app/assets/images/**',
-    '!./app/assets/styles/**',
-    '!./app/assets/scripts/**',
+    '!./app/src/img/**',
+    '!./app/src/css/**',
+    '!./app/src/js/**',
     '!./app/temp',
     '!./app/temp/**'
   ];
   return gulp.src(paths)
-    .pipe(gulp.dest('./docs'));
+    .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('optimizeImages', function() {
-  return gulp.src(['./app/assets/images/**/*', '!./app/assets/images/icons', '!./app/assets/images/icons/**/*'])
+  return gulp.src(['./app/src/img/**/*', '!./app/src/img/icons', '!./app/src/img/icons/**/*'])
     .pipe(imagemin({
       progressive: true,
       interlaced: true,
       multipass: true
     }))
-    .pipe(gulp.dest("./docs/assets/images"));
+    .pipe(gulp.dest("./dist/src/img"));
 });
 
 // gulp.task('copyHTML', function () {
@@ -69,7 +69,7 @@ gulp.task('usemin', function () {
       html: [htmlmin({ collapseWhitespace: true })],
       js: [uglify(), rev()],
     }))
-    .pipe(gulp.dest('./docs'));
+    .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('build', gulp.series('deleteDist', 'copyFiles', 'icons', 'optimizeImages', 'styles', 'scripts', 'usemin'));
