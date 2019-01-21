@@ -6,10 +6,9 @@
   "author": "Kellie Petersen",
   "license": "MIT",
   "directories": {
-    "doc": "docs"
+    "doc": "dist"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
   },
   "devDependencies": {
@@ -32,6 +31,7 @@
     "gulp-uglify": "^3.0.1",
     "gulp-usemin": "^0.3.29",
     "gulp-watch": "^5.0.1",
+    "gulp-zip": "^4.2.0",
     "postcss-import": "^12.0.1",
     "postcss-mixins": "^6.2.1",
     "postcss-nested": "^4.1.1",
