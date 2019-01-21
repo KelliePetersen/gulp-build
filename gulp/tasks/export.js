@@ -4,12 +4,11 @@ const gulp = require('gulp'),
 
 gulp.task('deleteZIP', () => del('./dist.zip'));
 
-gulp.task('copy', function(done) {
+gulp.task('createZIP', (done) => {
   gulp.src('dist/**')
     .pipe(zip('dist.zip'))
     .pipe(gulp.dest('./'));
     done();
-  }
-);
+});
 
-gulp.task('export', gulp.series('deleteZIP', 'copy'));
+gulp.task('export', gulp.series('deleteZIP', 'createZIP'));

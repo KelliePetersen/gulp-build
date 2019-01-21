@@ -1,8 +1,8 @@
 const gulp = require('gulp'),
-  del = require('del'),
-  svgSprite = require('gulp-svg-sprite'),
-  rename = require('gulp-rename'),
-  svg2png = require('gulp-svg2png');
+      del = require('del'),
+      svgSprite = require('gulp-svg-sprite'),
+      rename = require('gulp-rename'),
+      svg2png = require('gulp-svg2png');
 
 const config = {
   shape: {
@@ -29,35 +29,40 @@ const config = {
   }
 };
 
-gulp.task('beginClean', function () {
-  return del(['./app/temp/sprite', './app/src/img/sprites']);
-});
+gulp.task('cleanSprites', () => del(['./app/temp/sprite', './app/src/img/sprites']));
 
-gulp.task('createSprite', function () {
-  return gulp.src('./app/src/img/icons/**/*.svg')
+gulp.task('createSprite', () =>
+  gulp.src('./app/src/img/icons/**/*.svg')
     .pipe(svgSprite(config))
-    .pipe(gulp.dest('./app/temp/sprite/'));
-});
+    .pipe(gulp.dest('./app/temp/sprite/'))
+);
 
-gulp.task('createPngCopy', function () {
-  return gulp.src('./app/temp/sprite/css/*.svg')
+gulp.task('createPngCopy', () =>
+  gulp.src('./app/temp/sprite/css/*.svg')
     .pipe(svg2png())
-    .pipe(gulp.dest('./app/temp/sprite/css'));
-});
+    .pipe(gulp.dest('./app/temp/sprite/css'))
+);
 
-gulp.task('copySpriteGraphic', function () {
-  return gulp.src('./app/temp/sprite/css/**/*.{svg,png}')
-    .pipe(gulp.dest('./app/src/img/sprites'));
-});
+gulp.task('copySpriteGraphic', () =>
+  gulp.src('./app/temp/sprite/css/**/*.{svg,png}')
+    .pipe(gulp.dest('./app/src/img/sprites'))
+);
 
-gulp.task('copySpriteCSS', function () {
-  return gulp.src('./app/temp/sprite/css/*.css')
+gulp.task('copySpriteCSS', () => 
+  gulp.src('./app/temp/sprite/css/*.css')
     .pipe(rename('_sprite.css'))
-    .pipe(gulp.dest('./app/src/css/modules'));
-});
+    .pipe(gulp.dest('./app/src/css/modules'))
+);
 
-gulp.task('endClean', function () {
-  return del('./app/temp/sprite');
-});
+gulp.task('cleanTempSprite', () => del('./app/temp/sprite'));
 
-gulp.task('icons', gulp.series('beginClean', 'createSprite', 'createPngCopy', gulp.parallel('copySpriteGraphic', 'copySpriteCSS'), 'endClean'));
+gulp.task(
+  'sprite',
+  gulp.series(
+    'cleanSprites',
+    'createSprite',
+    'createPngCopy',
+    gulp.parallel('copySpriteGraphic', 'copySpriteCSS'),
+    'cleanTempSprite'
+  )
+);

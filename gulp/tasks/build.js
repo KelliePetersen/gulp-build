@@ -1,4 +1,4 @@
-const gulp = require("gulp"),
+const gulp = require('gulp'),
       imagemin = require('gulp-imagemin'),
       usemin = require('gulp-usemin'),
       htmlmin = require('gulp-htmlmin'),
@@ -6,65 +6,56 @@ const gulp = require("gulp"),
       cleanCSS = require('gulp-clean-css'),
       uglify = require('gulp-uglify'),
       del = require('del'),
-      browserSync = require("browser-sync").create();
+      browserSync = require('browser-sync').create();
 
-gulp.task('previewBuild', function() {
+gulp.task('previewBuild', () => 
   browserSync.init({ 
     notify: false, 
-    server: { baseDir: "dist" } 
-  });
-});
+    server: { baseDir: 'dist' } 
+  })
+);
 
 gulp.task('deleteDist', () => del('./dist'));
 
-gulp.task('copyFiles', function() {
+gulp.task('copyFiles', () => {
   const paths = [
     './app/**/*',
     '!./app/index.html',
-    '!./app/src/img/**',
-    '!./app/src/css/**',
-    '!./app/src/js/**',
-    '!./app/temp',
+    '!./app/src/**',
     '!./app/temp/**'
   ];
   return gulp.src(paths)
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('optimizeImages', function() {
-  return gulp.src(['./app/src/img/**/*', '!./app/src/img/icons', '!./app/src/img/icons/**/*'])
+gulp.task('minifyImages', () =>
+  gulp.src(['./app/src/img/**/*', '!./app/src/img/icons', '!./app/src/img/icons/**'])
     .pipe(imagemin({
       progressive: true,
       interlaced: true,
       multipass: true
     }))
-    .pipe(gulp.dest("./dist/src/img"));
-});
+    .pipe(gulp.dest('./dist/src/img'))
+);
 
-// gulp.task('compressJS', function (cb) {
-//   pump([
-//     gulp.src(['./app/temp/js/**/*.js', '!./app/temp/js/modernizr.js']),
-//     uglify(),
-//     gulp.dest('./dist/src/js')
-//   ],
-//     cb
-//   );
-// });
-
-// gulp.task('compressCSS', function() {
-//   return gulp.src('./app/temp/css/styles.css')
-//     .pipe(cleanCSS({ compatibility: 'ie8' }))
-//     .pipe(gulp.dest('./dist/src/css'));
-// });
-
-gulp.task('usemin', function () {
-  return gulp.src('./app/index.html')
+gulp.task('usemin', () =>
+  gulp.src('./app/index.html')
     .pipe(usemin({
       css: [cleanCSS({ compatibility: 'ie8' }), rev()],
       html: [htmlmin({ collapseWhitespace: true })],
-      js: [uglify(), rev()],
+      js: [function() {return rev()}, function() {return uglify()}]
     }))
-    .pipe(gulp.dest('./dist'));
-});
+    .pipe(gulp.dest('./dist'))
+);
 
-gulp.task('build', gulp.series('deleteDist', 'copyFiles', 'icons', 'optimizeImages', gulp.parallel('styles', 'scripts'), 'usemin'));
+gulp.task(
+  'build', 
+  gulp.series(
+    'deleteDist', 
+    'copyFiles', 
+    'sprite', 
+    'minifyImages', 
+    gulp.parallel('buildCSS', 'buildJS'), 
+    'usemin'
+  )
+);
