@@ -43,6 +43,7 @@
     "lazysizes": "^4.1.8",
     "normalize.css": "^8.0.1",
     "picturefill": "^3.0.3",
-    "rfs": "^8.0.4"
+    "rfs": "^8.0.4",
+    "scrollreveal": "^4.0.5"
   }
 }

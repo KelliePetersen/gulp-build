@@ -2,6 +2,7 @@
 @import "base/_variables";
 @import "base/_global";
 @import "base/_mixins";
+@import "modules/_scroll-reveal";
 @import "modules/_social-icons";
 @import "modules/_sprite";
 @import "modules/_menu";

@@ -382,6 +382,10 @@ img {
   box-sizing: border-box;
 }
 
+html.sr .heading {
+  visibility: hidden;
+}
+
 .social-icons {
   text-align: center;
   max-width: 250px;
