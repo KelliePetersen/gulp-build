@@ -1,6 +1,6 @@
 class BackToTop {
   constructor() {
-    this.backToTopButton = document.getElementsByClassName('btn__back-to-top');
+    this.backToTopButton = document.getElementsByClassName('.back-to-top');
     this.events();
   }
 
@@ -10,9 +10,9 @@ class BackToTop {
 
   scrollFunction() {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      this.backToTopButton[0].classList.remove('btn--hidden');
+      this.backToTopButton[0].classList.remove('.back-to-top--hidden');
     } else {
-      this.backToTopButton[0].classList.add('btn--hidden');
+      this.backToTopButton[0].classList.add('.back-to-top--hidden');
     }
   }
 }

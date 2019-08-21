@@ -1,5 +1,5 @@
 /*!
- * modernizr v3.6.0
+ * modernizr v3.7.1
  * Build https://modernizr.com/download?-svg-setclasses-dontmin
  *
  * Copyright (c)
@@ -10,6 +10,7 @@
  *  Patrick Kettner
  *  Stu Cox
  *  Richard Herrera
+ *  Veeck
 
  * MIT License
  */
@@ -23,20 +24,19 @@
 */
 
 ;(function(window, document, undefined){
+
   var tests = [];
   
 
   /**
-   *
    * ModernizrProto is the constructor for Modernizr
    *
    * @class
    * @access public
    */
-
   var ModernizrProto = {
     // The current version, dummy
-    _version: '3.6.0',
+    _version: '3.7.1',
 
     // Any settings that don't work as separate modules
     // can go in here as configuration.
@@ -95,20 +95,20 @@
    * @function is
    * @param {*} obj - A thing we want to check the type of
    * @param {string} type - A string to compare the typeof against
-   * @returns {boolean}
+   * @returns {boolean} true if the typeof the first parameter is exactly the specified type, false otherwise
    */
-
   function is(obj, type) {
     return typeof obj === type;
   }
+
   ;
 
   /**
    * Run through all tests and detect their support in the current UA.
    *
    * @access private
+   * @returns {void}
    */
-
   function testRunner() {
     var featureNames;
     var feature;
@@ -142,7 +142,6 @@
 
         // Run the test, or use the raw value if it's not a function
         result = is(feature.fn, 'function') ? feature.fn() : feature.fn;
-
 
         // Set each of the names on the Modernizr object
         for (nameIdx = 0; nameIdx < featureNames.length; nameIdx++) {
@@ -179,7 +178,6 @@
    * @access private
    * @returns {HTMLElement|SVGElement} The root element of the document
    */
-
   var docElement = document.documentElement;
   
 
@@ -189,8 +187,8 @@
    * @access private
    * @returns {boolean}
    */
-
   var isSVG = docElement.nodeName.toLowerCase() === 'svg';
+
   
 
   /**
@@ -200,7 +198,6 @@
    * @function setClasses
    * @param {string[]} classes - Array of class names
    */
-
   // Pass in an and array of class names, e.g.:
   //  ['no-webp', 'borderradius', ...]
   function setClasses(classes) {
@@ -220,14 +217,15 @@
 
     if (Modernizr._config.enableClasses) {
       // Add the new classes
-      className += ' ' + classPrefix + classes.join(' ' + classPrefix);
+      if (classes.length > 0) {
+        className += ' ' + classPrefix + classes.join(' ' + classPrefix);
+      }
       if (isSVG) {
         docElement.className.baseVal = className;
       } else {
         docElement.className = className;
       }
     }
-
   }
 
   ;
