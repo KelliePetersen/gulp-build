@@ -38,15 +38,16 @@ gulp.task('minifyImages', () =>
     .pipe(gulp.dest('./dist/src/img'))
 );
 
-gulp.task('usemin', () =>
-  gulp.src('./app/index.html')
+gulp.task('usemin', (cb) => {
+  gulp.src('./app/**/*.html')
     .pipe(usemin({
-      css: [cleanCSS({ compatibility: 'ie8' }), rev()],
-      html: [htmlmin({ collapseWhitespace: true })],
-      js: [function() {return rev()}, function() {return uglify()}]
+      css: [function () { return cleanCSS({ compatibility: 'ie8' }) }, function () { return rev() }],
+      html: [function () { return htmlmin({ collapseWhitespace: true }) }],
+      js: [function () { return rev() }, function () { return uglify() }]
     }))
-    .pipe(gulp.dest('./dist'))
-);
+    .pipe(gulp.dest('./dist'));
+  cb();
+});
 
 gulp.task(
   'build', 
