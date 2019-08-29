@@ -4,9 +4,6 @@
   .icon {
       background-image: url('../../src/img/sprites/sprite-1fdc15f5.svg');
     }
-  .no-svg .icon {
-      background-image: url('../../src/img/sprites/sprite-1fdc15f5.png');
-    }
   .icon--facebook {
     width: 23.23px;
     height: 44.01px;

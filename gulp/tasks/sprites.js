@@ -1,8 +1,7 @@
 const gulp = require('gulp'),
       del = require('del'),
       svgSprite = require('gulp-svg-sprite'),
-      rename = require('gulp-rename'),
-      svg2png = require('gulp-svg2png');
+      rename = require('gulp-rename');
 
 const config = {
   shape: {
@@ -12,13 +11,6 @@ const config = {
   },
   mode: {
     css: {
-      variables: {
-        replaceSvgWithPng: function () {
-          return function (sprite, render) {
-            return render(sprite).split('.svg').join('.png');
-          };
-        }
-      },
       sprite: 'sprite.svg',
       render: {
         css: {
@@ -37,14 +29,8 @@ gulp.task('createSprite', () =>
     .pipe(gulp.dest('./app/temp/sprite/'))
 );
 
-gulp.task('createPngCopy', () =>
-  gulp.src('./app/temp/sprite/css/*.svg')
-    .pipe(svg2png())
-    .pipe(gulp.dest('./app/temp/sprite/css'))
-);
-
 gulp.task('copySpriteGraphic', () =>
-  gulp.src('./app/temp/sprite/css/**/*.{svg,png}')
+  gulp.src('./app/temp/sprite/css/**/*.svg')
     .pipe(gulp.dest('./app/src/img/sprites'))
 );
 
@@ -61,7 +47,6 @@ gulp.task(
   gulp.series(
     'cleanSprites',
     'createSprite',
-    'createPngCopy',
     gulp.parallel('copySpriteGraphic', 'copySpriteCSS'),
     'cleanTempSprite'
   )

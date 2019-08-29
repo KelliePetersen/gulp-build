@@ -416,10 +416,6 @@ html.sr .heading {
       background-image: url('../../src/img/sprites/sprite-1fdc15f5.svg');
     }
 
-.no-svg .icon {
-      background-image: url('../../src/img/sprites/sprite-1fdc15f5.png');
-    }
-
 .icon--facebook {
     width: 23.23px;
     height: 44.01px;
@@ -537,6 +533,34 @@ html.sr .heading {
     transform: rotate(-45deg);
     top: 15px;
     left: 0;
+  }
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.nav__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+.nav__section {
+    margin: 25px;
+    list-style-type: none;
+  }
+
+.nav__link {
+    text-decoration: none;
+    color: var(--black);
   }
 
 .back-to-top {
