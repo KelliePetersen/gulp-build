@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "gulp-cli": "^2.2.0",
-    "lazysizes": "^4.1.8",
+    "lazysizes": "^5.2.1",
     "normalize.css": "^8.0.1",
     "picturefill": "^3.0.3",
     "rfs": "^8.0.4",
