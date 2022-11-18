@@ -35,7 +35,7 @@
     "postcss-mixins": "^6.2.2",
     "postcss-nested": "^4.1.2",
     "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "gulp-cli": "^2.2.0",
